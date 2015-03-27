@@ -24,9 +24,9 @@ public class iSpy {
     private String chatChannel;
     private String ispy = "ispy";
     private static final Pattern query = Pattern.compile("^\\[.+:.+\\]: 'gettrig'$");
-    private static final Pattern target = Pattern.compile("\033\\[1;37m\\(\033\\[0m\033\\[0m\033\\[37m (immoral|moral|true impartial|impartial)(?:, (?:invisible|cloaked)){0,2} (?:.+(Comatose|AFK))?.+(?:\033\\[1;37m(.+))\033\\[37m.*(is standing here|is here, passed out|is resting here|is here, fighting)(?:(.+))*\\.\033\\[0m");
-    private static final Pattern nonCombatPrompt = Pattern.compile("^(?:\\[?(?:Lag|L):\\d+\\])?\\s?(?:\\[?(?:Reply|R)\\[?)");
-    private static final Pattern combatPrompt = Pattern.compile("^(?:\\[?(?:Lag|L):\\d+\\])?\\s?(?:.+):\\s?\\((?:.+)\\)");
+     private static final Pattern target = Pattern.compile("(?:\033\\[1;37m\\( (immoral|moral|true impartial|impartial)(?:, (?:invisible|cloaked)){0,2} \\)\\s?(?:\\( (Comatose|AFK) \\))?)?.+(?:\033\\[1;37m(.+))\033\\[37m.*?(is standing here|is here, passed out|is resting here|is here, fighting)(?:(.+))?\\.\033\\[0m");
+    private static final Pattern nonCombatPrompt = Pattern.compile("^(?:\\[?(?:Lag|L):\\s?\\d+\\]?)\\s\\[?(?:R|Reply|.+ H):?\\s?");
+    private static final Pattern combatPrompt = Pattern.compile("^(?:\\[?(?:Lag|L):\\s?\\\\d+\\]?)?\\s?(?:.+):\\s?\\((?:.+)\\)|\\[.+]\\(.+\\)\\s");
 
     //Mora   Obsidian G   Anointed Fall   Runia     < aug-1 > Syskosis
     //Mora   Jadior of    Stone-guard     Blade     < mentor > Trebax
@@ -438,6 +438,7 @@ public class iSpy {
             spied = false;
             reportSpy(spyLines);
         }
+        
         if (s.find()) {
             //Adding to the spy queue.
             queue.add(s.group(1).toLowerCase());
